@@ -21,4 +21,8 @@ function createMarkup(arr) {
 
 container.insertAdjacentHTML("beforeend", createMarkup(galleryItems));
 
-var lightbox = new SimpleLightbox('.gallery a', { overlay: '2500ms' });
+var lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionPosition: "bottom",
+  captionDelay: "250",
+});

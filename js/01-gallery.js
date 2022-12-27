@@ -7,8 +7,9 @@ const container = document.querySelector(".js-gallery");
 // const galleryItemEl = document.querySelector('.gallery__link')
 
 function createMarkup(arr) {
-    const markup = arr.map(({ preview, original, description }) => {
-        return `
+  const markup = arr
+    .map(({ preview, original, description }) => {
+      return `
         <div class="gallery__item">
             <a class="gallery__link" href="${original}">
             <img
@@ -19,47 +20,29 @@ function createMarkup(arr) {
             />
             </a>
         </div>
-        `
-    }).join('');
-    return markup;
+        `;
+    })
+    .join("");
+  return markup;
 }
 
-container.insertAdjacentHTML('beforeend', createMarkup(galleryItems));
+container.insertAdjacentHTML("beforeend", createMarkup(galleryItems));
 
+const onGalleryItemElClick = (event) => {
+  event.preventDefault();
+  const { target } = event;
 
-const onGalleryItemElClick = event => {
-    event.preventDefault();
-    const { target } = event;
-    // console.log(target.dataset.source);
-
-    if (target.nodeName !== 'A') {
+  if (target.nodeName !== "IMG") {
     return;
   }
 
-const galleryBigItemEl = basicLightbox.create(`
-    <img src="${target.dataset.source}" width="800" height="600">
-`)
+  const bannerUrl = target.dataset.source;
 
-galleryBigItemEl.show()
-}
+  const galleryBigItemEl = basicLightbox.create(`
+    <img src="${bannerUrl}" width="800" height="600">
+`);
 
-container.addEventListener('click', onGalleryItemElClick);
+  galleryBigItemEl.show();
+};
 
-
-
-// const onModalOpenImgClick = event => {
-// const instance = basicLightbox.create(`
-//     <img src="${original}" width="800" height="600">
-// `)
-
-// instance.show()
-// }
-
-// container.addEventListener('click', onModalOpenImgClick)
-// import * as basicLightbox from 'basiclightbox'
-
-// const instance = basicLightbox.create(`
-//     <img src="${original}" width="800" height="600">
-// `)
-
-// instance.show()
+container.addEventListener("click", onGalleryItemElClick);
